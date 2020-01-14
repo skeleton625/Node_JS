@@ -13,6 +13,12 @@ app.listen(3000, function(){
     console.log("Start express server on port 3000!");
 })
 
+/* 
+    app.js 파일이 존재하는 폴더 내의 public 폴더를 정적 폴더로 정의함.
+    이를 통해서 public 폴더 내에 존재하는 main.js 자바스크립트 파일, images 폴더를 사용할 수 있음
+*/
+app.use(express.static('public'))
+
 /*
     서버 함수 app을 통해 클라이언트가 GET 방식으로 서버 파일들에 접근할 수 있도록 함
 */
@@ -23,4 +29,9 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + "/public/main.html")
 })
 
-console.log('End of Server code . . .')
+// get 초기 매개변수를 통해 클라이언트가 접근하는 경로를 정의해줄 수 있음
+app.get('/main', function(req, res){
+    res.sendFile(__dirname + "/public/main.html")
+})
+
+console.log("End of Server code . . .")
