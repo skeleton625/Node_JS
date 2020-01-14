@@ -1,6 +1,6 @@
 # 1. 인프런 Node.js 의 이해 - NPM Project 시작하기
 
-1. npm의 이해 및 개발 환경 설정
+## 1. npm의 이해 및 개발 환경 설정
 
 NPM : it easy for JavaScript developers to share and reuse code.
 
@@ -26,7 +26,7 @@ npm 을 통해서 Node.js 초기화를 진행할 수 있으며 명령어는 다�
 
 기본적으로 이름(name), 버전(version), description, main, scripts, author, license를 정의함.
 
-2. npm을 통한 기본적인 웹서버 구현
+## 2. npm을 통한 기본적인 웹서버 구현
 
 npm 을 통해 백엔드 서버 express를 설치해보도록 함. 명령어는 다음과 같음.
 
@@ -58,7 +58,7 @@ Node.js에서 서버 콜백 함수들은 거의 비동기 방식으로 진행됨
 
 	2. 클라이언트가 들어오지 않아도 다음 줄(console.log('end of Server code . . .'))을 실행함
 
-# 참고
+### 참고
 	nodemon
 		
 		서버 코드의 변화를 감지하고 서버를 재실행시켜주는 모듈로 설치 명령어는 다음과 같음
@@ -70,3 +70,46 @@ Node.js에서 서버 콜백 함수들은 거의 비동기 방식으로 진행됨
 		# '--g' 의 경우, 모든 디렉토리에서 nodemon을 접근할 수 있도록 설정해주는 명령어
 
 		# Linux 및 Mac 에서는 관리자 권한(sudo)이 필요함.
+
+# 3. 인프런 Node.js 의 이해 - URL Routing 처리
+
+## 1. GET 방식 처리
+
+클라이언트가 서버로 들어올 시, Node.js 에서 GET 방식으로 클라이언트를 처리할 수 있음
+
+	app.get('/', function(req, res){
+		
+		res.send("hello friend!");
+	
+	})
+
+또한, res.send 함수 내에 html 코드를 입력해서 사용할 수도 있음.
+
+	app.get('/', function(req, res){
+	
+		res.send("<h1>hello friend!</h1>")
+	
+	})
+
+## 2. 서버 내 다른 파일들 접근
+
+클라이언트가 서버 내의 다른 파일에 접근하기 위해선 Node.js에서 그 파일에 대한 접근 방법을 정의해 줘야 함.
+
+	''
+		res.sendFile(절대 경로)		// res.send를 대체
+
+	''
+
+여기서 "절대 경로"의 경우, 실제 절대 경로를 입력할 수도 있지만 Node.js 내에 정의되어 있는 "__dirname" 변수를 통해
+
+정의할 수도 있음.
+
+"__dirname"은 현재 app.js가 위치한 최상위 경로를 나타내는 변수임.
+
+	''
+
+		linux, unix path : res.sendFile(++dirname + "/public/main.html/)
+
+	''
+
+
