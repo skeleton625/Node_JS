@@ -108,8 +108,38 @@ Node.js에서 서버 콜백 함수들은 거의 비동기 방식으로 진행됨
 
 	''
 
-		linux, unix path : res.sendFile(++dirname + "/public/main.html/)
+		// linux, unix path : 
+		
+		res.sendFile(++dirname + "/public/main.html/)
 
 	''
 
+# 4. 인프런 Node.js 의 이해 - static 디렉토리 설정
 
+## 1. static 파일 정의
+
+실습 폴더 내의 javascript, css 같은 파일들을 static 파일(정적인 파일)들이라 일컬음.
+
+이러한 파일들을 Node.js를 통해 등록해줄 수 있음. (등록하지 않는 이상 사용할 수가 없음)
+
+	''
+
+	app.use(express.static('public')
+
+	
+	''
+
+이 코드는 app.js 파일이 존재하는 폴더의 "public"이란 폴더를 static 폴더(정적인 폴더)로 정의하겠다는 의미임.
+
+## 2. GET 방식을 통한 경로 지정
+
+이전에 설명한 app.get 함수를 사용해 클라이언트가 접근할 수 있는 경로를 정의할 수 있음.
+	''
+
+	app.get('/main', function(req, res){
+		res.sendFile(__dirname + "/public/main.html")
+	})
+	
+	''
+
+즉, 클라이언트는 http://localhost:3000/main URL 경로릍 통해서 main.html을 볼 수 있게 됨.
