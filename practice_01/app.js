@@ -13,4 +13,14 @@ app.listen(3000, function(){
     console.log("Start express server on port 3000!");
 })
 
+/*
+    서버 함수 app을 통해 클라이언트가 GET 방식으로 서버 파일들에 접근할 수 있도록 함
+*/
+app.get('/', function(req, res){
+    // html 코드 자체를 전송할 수 있음
+    // res.send("<h1>Hello friend!</h1>")
+    // 또는 이미 구현된 파일들을 전송할 수도 있음
+    res.sendFile(__dirname + "/public/main.html")
+})
+
 console.log('End of Server code . . .')
