@@ -98,3 +98,21 @@ ejs 모듈은 node.js 서버에서 코드로 다음과 같이 사용할 수가 �
 	또한, 현재까지 package.json 파일을 통해 node_modules 폴더가 없어도 설치한 모듈들을
 
 	파악 및 설치할 수 있음.
+
+## 3. JSON 을 활용한 Ajax 처리
+
+public/form.html에서 Ajax를 사용해 JSON 데이터를 전송하도록 하는 예재를 진행할 것임.
+
+예제 코드에 대한 사항이 많기 때문에, public/form.html 파일과 public/main.js 파일로 대체함.
+
+코드를 완성하고 실행해 보면 처리 과정은 다음과 같음을 알 수가 있다.
+
+	1. 클라이언트 브라우저
+	
+	2. 서버 app.post('ajax_send_email', ...)
+
+	3. form.html의 script 태그
+
+	4. main.js의 sendAjax 함수
+
+	5. 처리된 결과를 form.html에 비동기로 출력
