@@ -1,4 +1,4 @@
-# Request, Response 처리 기본
+# Node.js 백엔드 강의 - Request, Response 처리 기본
 
 ## 1. POST 요청처리
 
@@ -30,9 +30,11 @@ npm에서 body-parser 모듈을 다운 받으면 해당 모듈을 통해 POST �
 
 	''
 
-		app.use(bodyParser.json())
+	var bodyParser = require('body-parser')
 
-		app.use(bodyParser.urlencoded({extended:true}))
+	app.use(bodyParser.json())
+
+	app.use(bodyParser.urlencoded({extended:true}))
 
 	''
 첫 번째 코드는 bodyParser를 통해 들어온 POST 데이터가 json 양식일 경우에 반응하는 코드이고
@@ -54,4 +56,45 @@ npm에서 body-parser 모듈을 다운 받으면 해당 모듈을 통해 POST �
 	''
 위의 "req.body.email"을 통해 클라이언트가 POST 방식으로 전송한 email 데이터를 서버에서 확인할 수 있음.
 
+## 2. View engine을 활용한 응답처리
 
+클라이언트가 제공한 데이터를 섞어 적당한 View html을 보여주기 위해 EJS 모듈을 사용할 예정임.
+
+	> npm install ejs --save
+
+ejs 모듈은 node.js 서버에서 코드로 다음과 같이 사용할 수가 있음.
+
+	''
+	app.set('view engine', 'ejs')
+
+	''
+해당 코드는 즉, ejs 모듈은 뷰 엔진(view engine)으로 사용하겠다고 정의하는 것을 의미함.
+
+뷰 엔진의 경우, 뷰만의 폴더가 "절대 경로 + /views" 로 이미 정의가 되어 있는 상태입.
+
+그렇기 때문에 views 폴더를 만들어 view html 파일(../views/email.ejs)을 해당 폴더 내에 생성해 줘야 함.
+
+그 다음, node.js 서버에서 다음과 같이 정의를 해줌.
+
+	''
+
+	app.post('/email_post', function(req, res){
+	
+		res.render('email.ejs', {'email' : req.body.email})
+
+	})
+
+	''
+위 코드의 내용은 POST 방식의 요청(request)에 대해 email.ejs (View engine) 파일을 보여주면서
+
+"req.body.email"에 대한 정보를 email 변수로 정의하겠다는 것을 의미함.
+
+### 참고
+	
+	EJS 모듈 이외에도 Pug, Mustache 등의 View Engine이 존재한다.
+
+	자세한 것은 Express 페이지에 존재함. (또는 검색)
+
+	또한, 현재까지 package.json 파일을 통해 node_modules 폴더가 없어도 설치한 모듈들을
+
+	파악 및 설치할 수 있음.
