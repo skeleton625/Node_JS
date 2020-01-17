@@ -23,6 +23,7 @@ app.use(express.static('public'))
 // bodyParser 모듈이 json, json 이외의 데이터에 대해 반응할 수 있도록 정의
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.set('view engine', 'ejs')
 
 /*
     서버 함수 app을 통해 클라이언트가 GET 방식으로 서버 파일들에 접근할 수 있도록 함
@@ -43,7 +44,9 @@ app.get('/main', function(req, res){
 app.post('/email_post', function(req, res){
     // bodyParser 모듈을 통해 POST 방식 메시지로 전송된 email 데이터를 확인함.
     console.log("Requested Email : "+req.body.email)
-    res.send("<h1>Welcome! </h1>" + "<h2>"+ req.body.email + "</h2>")
+    //res.send("<h1>Welcome! </h1>" + "<h2>"+ req.body.email + "</h2>")
+    // POST 방식으로 전송받은 데이터를 email.ejs로 'email'이라는 변수명으로 전송함.
+    res.render('email.ejs', {'email': req.body.email})
 })
 
 console.log("End of Server code . . .")
