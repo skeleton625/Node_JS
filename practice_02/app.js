@@ -40,13 +40,22 @@ app.get('/main', function(req, res){
     res.sendFile(__dirname + "/public/main.html")
 })
 
-// form.html의 POST 방식 메시지에 대해 처리하는 함수
+// form.html의 POST 방식 submit버튼에 대한 처리
 app.post('/email_post', function(req, res){
     // bodyParser 모듈을 통해 POST 방식 메시지로 전송된 email 데이터를 확인함.
     console.log("Requested Email : "+req.body.email)
     //res.send("<h1>Welcome! </h1>" + "<h2>"+ req.body.email + "</h2>")
     // POST 방식으로 전송받은 데이터를 email.ejs로 'email'이라는 변수명으로 전송함.
     res.render('email.ejs', {'email': req.body.email})
+})
+
+// form.html의 ajax send 버튼에 대한 처리
+app.post('/ajax_send_email', function(req, res){
+    // 전송 받은 데이터를 JSON 데이터로 새로 정의
+        // 해당 코드는 이후에 DB를 통해 DB 내에 데이터가 존재하는지 확인하는 과정으로 수정할 예정임
+    var response_data = {'result' : 'ok', 'email' : req.body.email}
+    // 새로 정의한 JSON 데이터를 javascript(main.js)로 전송
+    res.json(response_data)
 })
 
 console.log("End of Server code . . .")
