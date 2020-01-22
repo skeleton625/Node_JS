@@ -110,7 +110,7 @@ Node.js에서 서버 콜백 함수들은 거의 비동기 방식으로 진행됨
 
 		// linux, unix path : 
 		
-		res.sendFile(++dirname + "/public/main.html/)
+		res.sendFile(__dirname + "/public/main.html/)
 
 	''
 
@@ -137,7 +137,9 @@ Node.js에서 서버 콜백 함수들은 거의 비동기 방식으로 진행됨
 	''
 
 	app.get('/main', function(req, res){
+
 		res.sendFile(__dirname + "/public/main.html")
+	
 	})
 	
 	''
