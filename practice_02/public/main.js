@@ -5,7 +5,7 @@ document.querySelector('.ajax_send').addEventListener('click', function(){
     /*
         forms[0]    -> 첫 번째 form 태그를 의미
         elements[0] -> 첫 번째 form 태그의 input 태그를 의미
-        value       -> 첫 번재 form 태긔으 input 태그에 값(email)을 의미
+        value       -> 첫 번재 form 태그의 input 태그에 값(email)을 의미
     */
     var input_data = document.forms[0].elements[0].value
     // sendAjax 함수를 사용해 "http://localhost:300/ajax_send_email" 주소로 input_data를 전송
@@ -14,7 +14,7 @@ document.querySelector('.ajax_send').addEventListener('click', function(){
 
 function sendAjax(url, data)
 {
-    // JSON 데이터ㅉ
+    // JSON 데이터 정의
     var data = {'email' : data};
     // JSON 데이터를 문자열로 변경
     data = JSON.stringify(data);
