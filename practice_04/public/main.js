@@ -27,15 +27,16 @@ function sendAjax(url, data)
     xhr.send(data);
     // 데이터가 정상적으로 전송되었을 경우, 반응 텍스트를 출력
     xhr.addEventListener('load', function(){
+        // 서버 반응 결과로 온 Json 파일을 Parsing
         var result = JSON.parse(xhr.responseText);
+        // 결과를 출력할 div 태그 정의
+        var result_div = document.querySelector(".result");
 
-        // 결과 JSON 데이터가 맞지 않을 경우, 오류를 출력
+        // DB 내에 email이 존재하지 않을 경우, "Fail"을 태그 내에 출력
         if(result.result !== "ok")
-            document.querySelector(".result").innerHTML = 
-                                                "<h2>Fail</h2>";
-        // 맞을 경우 해당 데이터를 출력
+            result_div.innerHTML = "<h2>Fail</h2>";
+        // DB 내에 email이 존재할 경우, "Success : 'email 주인 이름'"을 태그 내에 출력
         else
-            document.querySelector(".result").innerHTML = 
-                                                "<h2>Success : </h2>" + result.email;
+            result_div.innerHTML = "<h2>Success : </h2>" + result.name;
     });
 }
