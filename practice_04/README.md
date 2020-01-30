@@ -1,4 +1,4 @@
-# 4. Node.js 와 Database(MYSQL) 연동
+# 4. Node.js 와 Database(MYSQL) 연동 기본
 
 ## 1. MYSQL 연동 설정
 
@@ -89,3 +89,60 @@ MySQL을 다운로드 받은 뒤,  "고급 시스템 설정"에서 환경 변수
 	''
 
 위와 같은 코드를 입력한 뒤, 서버를 실행하면 정상적으로 서버가 작동함을 확인할 수 있습니다.
+
+## 3. MySQL 연둥 구현
+
+이제 Node.js 서버 코드를 통해 MySQL DB에 접근하는 코드를 구현하겠습니다.
+
+MySQL DB에 접근하는 코드는 위 2번에서 구현한 코드에서 이어집니다.
+
+	''
+
+	app.post('/ajax_send_email', function(req, res){
+
+		var email = req.body.email;
+
+		var response_data = {};
+
+		var query = connection.query('select name from user where email="'+email+'"',
+
+				function(err, rows){
+
+					if(err) throw err;
+
+					if(rows[0]){
+
+						response_data.result = "ok";
+
+						response_data.name = rows[0].name;
+
+					} else{
+
+						response_data.result = "none";
+
+						response_data.name = "";
+
+					}
+					
+					res.json(response_data);
+					
+				});
+
+	''
+
+위 코드는 practice_02 폴더에서 진행했던 구현 코드에서 추가한 코드입니다.
+
+해당 코드는 form.html에서 email을 입력한 뒤, "send ajax" 버튼을 클릭하게 될 경우, 진행되는 내용으로,
+
+email json 데이터를 main.js 코드의 sendAjax 함수에서 정의해 '/ajax_send_email' 주소로 전송하게 됩니다.
+
+그러면 app.js 서버에서 email json 데이터를 받아 위 코드를 실행하게 됩니다.
+
+위 코드는 앞 2번에서 정의했던 DB의 테이블에 대해서 반응하는 코드로 email json 데이터를 통해 전송된
+
+email을 가진 레코드가 존재할 경우, 있음을 알리는 json 데이터를, 존재하지 않을 경우, 없음을 알리는 json
+
+데이터를 main.js 코드의 xhr.addEventListener 함수로 전송하게 됩니다.
+
+그러면 그 함수의 function 콜백 함수를 통해 그에 대한 결과를 html  내에 표시해 줄 수 있게 됩니다.
+
