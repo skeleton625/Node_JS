@@ -37,22 +37,6 @@ app.use(express.static('public'))
 // bodyParser 모듈이 json, json 이외의 데이터에 대해 반응할 수 있도록 정의
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
-app.set('view engine', 'ejs')
-
-/*
-    서버 함수 app을 통해 클라이언트가 GET 방식으로 서버 파일들에 접근할 수 있도록 함
-*/
-app.get('/', function(req, res){
-    // html 코드 자체를 전송할 수 있음
-    // res.send("<h1>Hello friend!</h1>")
-    // 또는 이미 구현된 파일들을 전송할 수도 있음
-    res.sendFile(__dirname + "/public/main.html")
-})
-
-// get 초기 매개변수를 통해 클라이언트가 접근하는 경로를 정의해줄 수 있음
-app.get('/main', function(req, res){
-    res.sendFile(__dirname + "/public/main.html")
-})
 
 // form.html의 POST 방식 submit버튼에 대한 처리
 app.post('/email_post', function(req, res){
