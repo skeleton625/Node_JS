@@ -9,7 +9,7 @@ document.querySelector('.ajax_send').addEventListener('click', function(){
     */
     var input_data = document.forms[0].elements[0].value
     // sendAjax 함수를 사용해 "http://localhost:300/ajax_send_email" 주소로 input_data를 전송
-    sendAjax('http://localhost:3000/form/ajax_send_email', input_data)
+    sendAjax('http://localhost:3000/email/ajax', input_data)
 })
 
 function sendAjax(url, data)
