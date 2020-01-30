@@ -15,18 +15,34 @@ var connection = mysql.createConnection({
 // 정의된 connection 객체로 연결 시도
 connection.connect();
 
+router.use(express.static('public'))
 // http://localhost:3000/form 주소로 접근할 때 사용하는 함수
 router.get('/', function(req, res){
     res.sendFile(path.join(__dirname, "../public/form.html"));
 });
 
+// form.html의 POST 방식 submit버튼에 대한 처리
+router.post('/form', function(req, res){
+    // bodyParser 모듈을 통해 POST 방식 메시지로 전송된 email 데이터를 확인함.
+    console.log("Requested Email : "+req.body.email)
+    //res.send("<h1>Welcome! </h1>" + "<h2>"+ req.body.email + "</h2>")
+    // POST 방식으로 전송받은 데이터를 email.ejs로 'email'이라는 변수명으로 전송함.
+    res.render('email.ejs', {'email': req.body.email})
+})
+
 // form.html의 ajax send 버튼에 대한 처리
-router.post('/ajax_send_email', function(req, res){
+router.post('/ajax', function(req, res){
     // POST 형식으로 온 email 변수 정의
     var email = req.body.email;
     // DB에 전송할 json 변수 정의
     var response_data = {};
+    var pattern_spc = /[=\"]/;
 
+    if(pattern_spc.test(email))
+    {
+        console.log("SQL Injection occured");
+        return;
+    }
     // email 정보에 대한 DB 제어 코드 정의
     var query = connection.query('select name from user where email="'+email+'"', 
                 // DB query에 대한 결과 입력

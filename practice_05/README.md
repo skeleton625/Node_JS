@@ -1,5 +1,7 @@
 # 4. Node.js Router 개선 - 모듈화
 
+## 1. Routing 모듈화 1, 2
+
 기존 app.js 에 존재하던 app.get 또는 app.post 등의 기능들을 모듈화할 수 있습니다.
 
 그러기 위해서 먼저 router 폴더를 생성한 뒤, router_main.js 파일을 생성해 줍니다.

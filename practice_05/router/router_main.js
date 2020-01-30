@@ -4,6 +4,7 @@ var router = express.Router();
 // path 모듈의 path 객체 정의
 var path = require('path');
 
+router.use(express.static('public'))
 // 여기선 /main이 root 경로 -> '/main' == '/'
 router.get('/', function(req, res){
     // __dirname과 ../public/main.html을 상대적으로 합쳐줌
