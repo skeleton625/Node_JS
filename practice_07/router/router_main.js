@@ -9,7 +9,8 @@ router.get('/', function(req, res){
     // __dirname과 ../public/main.html을 상대적으로 합쳐줌
     // 현재 주소    .../practice_05/router/main.js
     // 원하는 주소  .../practice_05/public/main.html
-    res.sendFile(path.join(__dirname, '../public/main.html'));
+    //res.sendFile(path.join(__dirname, '../public/main.html'));
+    res.render('main.ejs', {'name' : req.user.name});
 });
 
 // 임시방편
