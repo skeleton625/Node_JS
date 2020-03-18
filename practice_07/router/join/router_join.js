@@ -26,13 +26,28 @@ router.get('/', function(req, res){
     res.render('join.ejs', {'message' : msg});
 });
 
+// passport Serialize 부분
+passport.serializeUser(function(user, done){
+    // DB query로 전송된 user json의 id를 출력
+    console.log('passport session save : ', user.id);
+    // DB query의 user json을 그대로 deserializeUser 메소드로 전송
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done){
+    // serializeUser 메소드에서 전송된 user json의 id 값을 출력
+    console.log('passport session get id : ', user.id);
+    // 그대로 user json을 router_main.js로 전송
+    done(null, user);
+});
+
 // passport 정책 정의
 passport.use('local-join', new LocalStrategy({
         usernameField : 'email', 
         passwordField : 'password',
         passReqToCallback : true
     }, function(req, email, password, done){
-        // 현재 입력된 이메일이 존재하는지 확인
+        // 현재 입력된 이메일이 존재하는지 확`인
         var query = connection.query('select * from user where email=?', [email],
         function(err, rows){
             if(err) return done(err);
@@ -52,7 +67,7 @@ passport.use('local-join', new LocalStrategy({
                 var query = connection.query('insert into user set ?', sql, function(err, rows){
                     if(err) throw err;
                     // 완료되었음을 전송
-                    return done(null, true, {'email':email, 'id':rows.insertId});
+                    return done(null, {'email ': email, 'name' : req.body.name, 'id' : rows.insertId});
                 });
             }
         })
