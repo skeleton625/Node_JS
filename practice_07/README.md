@@ -172,3 +172,48 @@ passport.authenticate 함수를 통해 해당 정책의 성공, 실패 결과에
 그에 따라 3번 코드에서 이동 경로를 결정해 줄 수 있습니다.
 
 또한, 2번에서 3, 4 번으로 이동할 때, 입력된 코드와 같이 json 데이터를 같이 입력해 전송할 수도 있습니다.
+
+## 05. passport 기반 세션처리
+
+이전의 passport 정책을 통해 session을 사용하기 위해선 passport.serializeUser, passport.deserializeUser 메소드를
+
+정의해줘야 합니다.
+
+각 함수를 간단하게 구현하면 다음과 같습니다.
+
+	passport.serializeUser(function(user, done){
+
+		// DB query를 보내 얻은 insertId 값 출력
+
+		console.log('passport session save : ', user.id);
+
+		done(null, user.id);
+
+	});
+
+	passport.deserializeUser(function(id, done){
+		
+		// serializeUser 메소드의 done 메소드를 통해 보낸 user.id 출력
+
+		console.log('passport session get id : ', id);
+
+		done(null, id);
+
+	});
+
+또한 deserializeUser 메소드의 done 메소드에 id 변수를 추가할 경우, 다음 페이지에서 해당 id 변수 값을
+
+express.get 메소드 내에서 req.user 변수로 사용할 수 있게 됩니다.
+
+
+해당 사항은 router_main.js의 router.get 메소드에 포함되어 있으며 main.ejs 코드로 브라우저 화면에 표현합니다.
+
+즉 04 번 진행과정에서 다음 과정이 추가 됩니다.
+
+	5. passport.serializeUser(function(user, done){ ... });
+
+	6. passport.deserializeUser(function(user, done){ ... });
+
+	7. router_main.js 내 router.get(function(req, res){ ... });
+
+이를 통해 로그인 다음 페이지까지 클라이언트의 정보를 가져갈 수 있습니다.
